@@ -108,3 +108,4 @@ dialog img { max-height: 55svh; object-fit: cover; }
   html { scroll-behavior: auto; }
   .project-image img { transition: none; }
 }
+.motion-control { position: absolute; right: max(var(--gutter), calc((100% - 1700px) / 2)); bottom: 66px; z-index: 1; padding: 7px 11px; background: #0b0d0cbf; color: #d7dcd2; border: 1px solid var(--line); border-radius: 99px; font-size: 12px; cursor: pointer; }

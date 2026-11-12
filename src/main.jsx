@@ -9,6 +9,8 @@ const links = [['about', '关于'], ['work', '作品'], ['strengths', '优势']]
 
 function HeroVideo() {
   const video = useRef(null)
+  const [playing, setPlaying] = React.useState(false)
+  const [autoPlay] = React.useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -21,8 +23,15 @@ function HeroVideo() {
     return () => preference.removeEventListener('change', sync)
   }, [])
 
-  return <video ref={video} className="hero-video" muted loop playsInline preload="metadata"
-    poster={media('media/hero.jpg')} src={media('media/hero.mp4')} aria-hidden="true" />
+  return <>
+    <video ref={video} className="hero-video" muted autoPlay={autoPlay} loop playsInline preload="metadata"
+      onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}
+      poster={media('media/hero.jpg')} src={media('media/hero.mp4')} aria-hidden="true" />
+    <button className="motion-control" type="button" onClick={() => {
+      if (video.current.paused) video.current.play().catch(() => {})
+      else video.current.pause()
+    }}>{playing ? '暂停背景' : '播放背景'}</button>
+  </>
 }
 
 function ProjectGallery() {
